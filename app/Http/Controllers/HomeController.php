@@ -26,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $data['appointments'] = Appointment::count();
-        $data['users'] = User::count();
+        $data['patient'] = User::where('role','patient')->count();
+        $data['hospital'] = User::where('role','admin')->count();
         return view('pages.dashboard')->with($data, 'data');
     }
 
