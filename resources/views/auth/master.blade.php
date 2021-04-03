@@ -26,7 +26,7 @@
         <link rel="shortcut icon" href="{{asset('media/logos/favicon.ico')}}" />
         <style>
             .login-bg{
-                background: url("{{asset('images/eQuran-bg.jpg')}}");
+                background: url("{{asset('images/banner.jpg')}}");
                 background-position: center center;
                 background-size: cover;
             }
