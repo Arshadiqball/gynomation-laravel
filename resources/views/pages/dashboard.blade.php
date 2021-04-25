@@ -89,5 +89,5 @@
         </div>
     </div>
     <!--end::student_teacher-->
-        <script src="{{ asset('js/module.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/module.js') }}" type="text/javascript"></script>
 @endsection
