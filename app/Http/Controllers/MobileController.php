@@ -383,7 +383,6 @@ class MobileController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric',
             'name' => 'required',
-            'gender' => 'required',
             'phone_number' => 'required'
         ]);
         
@@ -440,10 +439,7 @@ class MobileController extends Controller
             $user->phone_number = $request->input('phone_number');
         }
       
-        if($request->input('gender') != ''){
-            $user->gender = $request->input('gender');
             $user->role = 'patient';
-        }
 
         $user->save();
 
