@@ -442,6 +442,7 @@ class MobileController extends Controller
       
         if($request->input('gender') != ''){
             $user->gender = $request->input('gender');
+            $user->role = 'patient';
         }
 
         $user->save();
