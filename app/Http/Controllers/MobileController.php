@@ -276,21 +276,21 @@ class MobileController extends Controller
             ], 401);
         }
         
-        if(!empty(User::orderBy('id', 'desc')->first())){
-            $val = preg_split('#(?<=\d)(?=[a-z])#i', User::orderBy('id', 'desc')->first()->user_code);
-            $num = ++$val[0];
-            // $alp = $val[1];
-            $alp = 'US';
-        }else{
-            $num = 1;
-            $alp = 'US';
-        }
+        // if(!empty(User::orderBy('id', 'desc')->first())){
+        //     $val = preg_split('#(?<=\d)(?=[a-z])#i', User::orderBy('id', 'desc')->first()->user_code);
+        //     $num = ++$val[0];
+        //     // $alp = $val[1];
+        //     $alp = 'US';
+        // }else{
+        //     $num = 1;
+        //     $alp = 'US';
+        // }
         
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->user_code = $num.$alp;
+        // $user->user_code = $num.$alp;
         $user->save();
 
         $patient = new Patient;
