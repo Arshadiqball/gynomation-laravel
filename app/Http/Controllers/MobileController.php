@@ -293,10 +293,6 @@ class MobileController extends Controller
         // $user->user_code = $num.$alp;
         $user->save();
 
-        $patient = new Patient;
-        $patient->users_id = $user->id;
-        $patient->save();
-
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
