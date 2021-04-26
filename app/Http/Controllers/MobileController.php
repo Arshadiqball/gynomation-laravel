@@ -384,7 +384,6 @@ class MobileController extends Controller
             'id' => 'required|numeric',
             'name' => 'required',
             'gender' => 'required',
-            'address' => 'required',
             'phone_number' => 'required'
         ]);
         
@@ -437,10 +436,6 @@ class MobileController extends Controller
             $user->name = $request->input('name');
         }
         
-        if($request->input('address') != ''){
-            $user->address = $request->input('address');
-        }
-       
         if( $request->input('phone_number') != ''){
             $user->phone_number = $request->input('phone_number');
         }
