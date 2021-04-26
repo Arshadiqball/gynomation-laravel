@@ -290,7 +290,6 @@ class MobileController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->role_id = 2;
         $user->user_code = $num.$alp;
         $user->save();
 
