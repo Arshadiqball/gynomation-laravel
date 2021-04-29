@@ -264,6 +264,8 @@ class MobileController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
             'name' => 'required|string|max:50',
+            'phone_number' => 'required|string|max:50',
+            'address' => 'required|string|max:50',
             'password' => 'required|confirmed|min:6'
         ]);
 
@@ -289,6 +291,8 @@ class MobileController extends Controller
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->phone_number = $request->input('phone_number');
+        $user->address = $request->input('address');
         $user->password = bcrypt($request->input('password'));
         // $user->user_code = $num.$alp;
         $user->save();
