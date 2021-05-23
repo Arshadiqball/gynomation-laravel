@@ -828,7 +828,7 @@ class MobileController extends Controller
         $list = Hospital::select('*', 
             DB::raw('SQRT( POW(69.1 * (lat - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - lng) * 
             COS(lat / 57.3), 2)) AS distance')
-            )
+            
         )
         ->having('distance', '<', 100)
         ->orderBy('distance')->toSql();
