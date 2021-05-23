@@ -17,6 +17,9 @@ Route::post('update_profile', 'MobileController@update_profile');
 Route::post('doctor_list_search', 'MobileController@doctor_list_search');
 Route::post('doctor_list_nearby', 'MobileController@doctor_list_nearby');
 
+Route::get('hospital_list_search', 'MobileController@hospital_list_search');
+Route::get('hospital_list_nearby', 'MobileController@hospital_list_nearby');
+
 Route::post('doctor_view', 'MobileController@doctor_view');
 Route::post('doctor_rating', 'MobileController@doctor_rating');
 Route::get('confirm_appointment', 'MobileController@confirm_appointment');
@@ -24,8 +27,6 @@ Route::post('book_appointment_view', 'MobileController@book_appointment_view');
 Route::post('booked_appointment_view', 'MobileController@booked_appointment_view');
 Route::post('scheduled_appointment', 'MobileController@scheduled_appointment');
 Route::get('dashboard_after_book_appointment', 'MobileController@dashboard_after_book_appointment');
-Route::get('clinic_list_search', 'MobileController@clinic_list_search');
-Route::get('clinic_list_nearby', 'MobileController@clinic_list_nearby');
 Route::get('clinic_doctor_availability', 'MobileController@clinic_doctor_availability');
 Route::get('my_appointment', 'MobileController@my_appointment');
 Route::get('view_appointment', 'MobileController@view_appointment');

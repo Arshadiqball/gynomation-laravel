@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\City;
-use App\Patient;
+use App\Hospital;
 use App\Doctor;
 use App\User;
 use App\Clinic;
@@ -798,13 +798,13 @@ class MobileController extends Controller
         ], 201);
     }
 
-    public function clinic_list_search(Request $request){
-        $list = Clinic::orWhere('name', 'like', '%'.$request->input('name').'%')->get();
+    public function hospital_list_search(Request $request){
+        $list = Hospital::orWhere('name', 'like', '%'.$request->input('name').'%')->get();
         
         return response()->json([
             'success' => true,
             'data' => $list,
-            'message' => 'Successfully Get Clinic List!'
+            'message' => 'Successfully Get Hospital List!'
         ], 201);
     }
 
