@@ -55,21 +55,12 @@ class MobileController extends Controller
             ], 401);
         }
 
-        // if(count(Appointment::where('patient_id', $request->input('patient_id'))->where('status', 'incomplete')->latest('patient_id')->get()->toArray()) > 0){
-            
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'You Already have Appointment'
-        //     ], 401);
-            
-        // }
-
         $appointment = new Appointment;
         $appointment->hospital_id = $request->input('hospital_id');
         $appointment->user_id = $request->input('user_id');
         $appointment->created_at = Carbon::now();
         $appointment->updated_at = Carbon::now();
-        $appointment->disease_name = $request->input('disease_name');
+        $appointment->reason = $request->input('reason');
         $appointment->save();
         
         // When appintment will insert then we can run the queue for next item
