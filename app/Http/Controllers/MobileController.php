@@ -808,8 +808,8 @@ class MobileController extends Controller
         ], 201);
     }
 
-    public function clinic_list_nearby(Request $request){
-        $list = Clinic::select('*', DB::raw('SQRT( POW(69.1 * (latitude - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - longitude) * 
+    public function hospital_list_nearby(Request $request){
+        $list = Hospital::select('*', DB::raw('SQRT( POW(69.1 * (latitude - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - longitude) * 
         COS(latitude / 57.3), 2)) AS distance'))
         ->having('distance', '<', 25)
         ->orderBy('distance')->get()->toArray();
@@ -817,7 +817,7 @@ class MobileController extends Controller
         return response()->json([
             'success' => true,
             'data' => $list,
-            'message' => 'Successfully Get Clinic List!'
+            'message' => 'Successfully Get Hospital List!'
         ], 201);
     }
 
