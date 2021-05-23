@@ -442,6 +442,10 @@ class MobileController extends Controller
         if( $request->input('phone_number') != ''){
             $user->phone_number = $request->input('phone_number');
         }
+
+        if( $request->input('address') != ''){
+            $user->address = $request->input('address');
+        }
       
             $user->role = 'patient';
 
