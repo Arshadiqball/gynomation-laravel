@@ -814,17 +814,22 @@ class MobileController extends Controller
         // COS(lat / 57.3), 2)) AS distance')
         // )
 
-        $list = Hospital::select('*', DB::raw(
-        '(
-            3959 * acos (
-              cos ( radians(78.3232) )
-              * cos( radians( '.$request->input('lat').' ) )
-              * cos( radians( '.$request->input('lng').' ) - radians(65.3234) )
-              + sin ( radians(78.3232) )
-              * sin( radians( '.$request->input('lat').' ) )
+        // $list = Hospital::select('*', DB::raw(
+        // '(
+        //     3959 * acos (
+        //       cos ( radians(78.3232) )
+        //       * cos( radians( '.$request->input('lat').' ) )
+        //       * cos( radians( '.$request->input('lng').' ) - radians(65.3234) )
+        //       + sin ( radians(78.3232) )
+        //       * sin( radians( '.$request->input('lat').' ) )
+        //     )
+        //   ) AS distance'
+        // ))
+        $list = Hospital::select('*', 
+            DB::raw('SQRT( POW(69.1 * (lat - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - lng) * 
+            COS(lat / 57.3), 2)) AS distance')
             )
-          ) AS distance'
-        ))
+        )
         ->having('distance', '<', 100)
         ->orderBy('distance')->toSql();
     
