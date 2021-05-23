@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/abc', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::post('appointment/list', 'HomeController@appointment_list');
+Route::get('hospital/add', 'HomeController@hospital_add');

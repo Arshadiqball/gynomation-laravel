@@ -31,6 +31,10 @@ class HomeController extends Controller
         return view('pages.dashboard')->with($data, 'data');
     }
 
+    public function hospital_add(){
+        return view('pages.hospital');
+    }
+    
     /**
      * Show the application dashboard.
      *

@@ -14,11 +14,9 @@ Route::post('sign_up', 'MobileController@sign_up');
 Route::get('logout', 'MobileController@logout');
 Route::post('update_profile', 'MobileController@update_profile');
 
-Route::post('doctor_list_search', 'MobileController@doctor_list_search');
-Route::post('doctor_list_nearby', 'MobileController@doctor_list_nearby');
-
-Route::get('hospital_list_search', 'MobileController@hospital_list_search');
 Route::get('hospital_list_nearby', 'MobileController@hospital_list_nearby');
+
+Route::post('book_appointment_view', 'MobileController@book_appointment_view');
 
 Route::post('doctor_view', 'MobileController@doctor_view');
 Route::post('doctor_rating', 'MobileController@doctor_rating');
