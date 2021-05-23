@@ -830,8 +830,8 @@ class MobileController extends Controller
             COS(lat / 57.3), 2)) AS distance')
             
         )
-        ->having('distance', '<', 100)
-        ->orderBy('distance')->toSql();
+        ->having('distance', '<', 20)
+        ->orderBy('distance')->get()->toArray();
     
         return response()->json([
             'success' => true,
