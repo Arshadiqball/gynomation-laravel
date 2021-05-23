@@ -13,8 +13,10 @@ Route::post('sign_in', 'MobileController@sign_in');
 Route::post('sign_up', 'MobileController@sign_up');
 Route::get('logout', 'MobileController@logout');
 Route::post('update_profile', 'MobileController@update_profile');
+
 Route::post('doctor_list_search', 'MobileController@doctor_list_search');
 Route::post('doctor_list_nearby', 'MobileController@doctor_list_nearby');
+
 Route::post('doctor_view', 'MobileController@doctor_view');
 Route::post('doctor_rating', 'MobileController@doctor_rating');
 Route::get('confirm_appointment', 'MobileController@confirm_appointment');
