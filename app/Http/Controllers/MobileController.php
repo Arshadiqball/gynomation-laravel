@@ -825,7 +825,7 @@ class MobileController extends Controller
             )
           ) AS distance'
         ))
-        ->having('distance', '<', 50)
+        ->having('distance', '<', 100)
         ->orderBy('distance')->get()->toArray();
 
         return response()->json([
