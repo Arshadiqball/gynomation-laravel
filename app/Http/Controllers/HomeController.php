@@ -60,7 +60,7 @@ class HomeController extends Controller
     
     public function hospital_create(){
         
-        dd(123);
+        dd(Request::segment(1));
     }
     
     /**
