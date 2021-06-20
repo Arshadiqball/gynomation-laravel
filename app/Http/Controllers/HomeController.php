@@ -40,8 +40,6 @@ class HomeController extends Controller
     public function user_list()
     {
         $data['users'] = User::count();
-        $data['patient'] = User::where('role','patient')->count();
-        $data['hospital'] = User::where('role','admin')->count();
         return view('pages.user')->with($data, 'data');
     }
 
