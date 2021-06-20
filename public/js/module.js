@@ -113,7 +113,7 @@
                         serverFiltering: false,
                         serverSorting: false,
                     },
-    
+
                     // layout definition
                     layout: {
                         scroll: false, // enable/disable datatable scroll both horizontal and
@@ -154,6 +154,9 @@
                     }, {
                         field: 'name',
                         title: 'Name'
+                    }, {
+                        field: 'email',
+                        title: 'Email'
                     }, {
                         field: 'created_at',
                         title: 'Create At',
