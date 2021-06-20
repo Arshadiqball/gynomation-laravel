@@ -18,5 +18,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::post('appointment/list', 'HomeController@appointment_list');
 Route::get('user/list', 'HomeController@user_list');
-Route::post('users/list', 'HomeController@user_list');
+Route::post('users/list', 'HomeController@users_list');
 Route::get('hospital/add', 'HomeController@hospital_add');

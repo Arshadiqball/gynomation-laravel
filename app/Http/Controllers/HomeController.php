@@ -18,7 +18,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
+     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -29,6 +29,19 @@ class HomeController extends Controller
         $data['patient'] = User::where('role','patient')->count();
         $data['hospital'] = User::where('role','admin')->count();
         return view('pages.dashboard')->with($data, 'data');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function user_list()
+    {
+        $data['users'] = User::count();
+        $data['patient'] = User::where('role','patient')->count();
+        $data['hospital'] = User::where('role','admin')->count();
+        return view('pages.user')->with($data, 'data');
     }
 
     public function hospital_add(){
@@ -56,7 +69,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function user_list()
+    public function users_list()
     {
 
         return response()->json([
