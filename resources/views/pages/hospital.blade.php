@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <button class="btn btn-primary">Add Hospital</button>
+
     <!--begin::student_teacher-->
     <div class="row">
         <div class="col-lg-12">
