@@ -58,9 +58,9 @@ class HomeController extends Controller
         return view('pages.hospital_add');
     }
     
-    public function hospital_create(Request $request){
+    public function hospital_create(){
         
-        dd($request->input());
+        dd(123);
     }
     
     /**
