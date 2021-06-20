@@ -2,10 +2,11 @@
 
 @section('content')
 
-    {{ Form::open(array('url' => 'hospital/create')) }}
-        {{ Form::text('name') }}
-        {{ Form::submit('Create') }}
-    {{ Form::close() }}
+    <form action="{{URL('/hospital/create')}}">
+        <label for="fname">Name:</label><br>
+        <input type="text" name="name">
+        <input type="submit" value="Submit">
+    </form>
 
     <!--end::student_teacher-->
     <script src="{{ asset('js/module.js') }}" type="text/javascript"></script>
