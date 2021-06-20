@@ -19,4 +19,6 @@ Route::get('/', 'HomeController@index');
 Route::post('appointment/list', 'HomeController@appointment_list');
 Route::get('user/list', 'HomeController@user_list');
 Route::post('users/list', 'HomeController@users_list');
+Route::get('hospital/list', 'HomeController@hospital_list');
+Route::post('hospitals/list', 'HomeController@hospitals_list');
 Route::get('hospital/add', 'HomeController@hospital_add');

@@ -27,14 +27,6 @@
         <ul class="nav flex-column">
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" 
-            title="Appointments">
-                <a href="{{URL('/appointment/list')}}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg active" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
-                    <i class="flaticon2-analytics-2 icon-lg icon-lg"></i>
-                </a>
-            </li>
-            <!--end::Item-->
-            <!--begin::Item-->
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" 
             title="Users">
                 <a href="{{URL('/user/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab" data-target="#kt_aside_tab_3" role="tab">
                     <i class="flaticon2-group icon-lg"></i>

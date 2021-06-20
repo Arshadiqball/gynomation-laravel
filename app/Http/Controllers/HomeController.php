@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appointment;
-use App\user;
+use App\Hospital;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -44,6 +45,17 @@ class HomeController extends Controller
         return view('pages.user')->with($data, 'data');
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function hospital_list()
+    {
+        $data['hospitals'] = Hospital::count();
+        return view('pages.hospital')->with($data, 'data');
+    }
+
     public function hospital_add(){
         return view('pages.hospital');
     }
@@ -77,6 +89,22 @@ class HomeController extends Controller
             'data' => User::all(),
             'meta' => ["field" => "id",
             "sort" => "asc", "total" => User::count()]
+        ], 201);
+    }
+    
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function hospitals_list()
+    {
+
+        return response()->json([
+            'success' => true,
+            'data' => Hospital::all(),
+            'meta' => ["field" => "id",
+            "sort" => "asc", "total" => Hospital::count()]
         ], 201);
     }
 }
