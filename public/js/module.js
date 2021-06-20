@@ -195,7 +195,7 @@
                         type: 'remote',
                         source: {
                             read: {
-                                url: DOMAIN + 'hospital/list',
+                                url: DOMAIN + 'hospitals/list',
                             },
                         },
                         pageSize: 10,
