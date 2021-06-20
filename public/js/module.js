@@ -245,8 +245,8 @@
                         field: 'name',
                         title: 'Name'
                     }, {
-                        field: 'email',
-                        title: 'Email'
+                        field: 'phone',
+                        title: 'Phone'
                     }, {
                         field: 'created_at',
                         title: 'Create At',
