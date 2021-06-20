@@ -55,7 +55,12 @@ class HomeController extends Controller
     }
 
     public function hospital_add(){
-        return view('pages.hospital');
+        return view('pages.hospital_add');
+    }
+    
+    public function hospital_create(Request $request){
+        
+        dd($request->input());
     }
     
     /**
