@@ -50,4 +50,20 @@ class HomeController extends Controller
             "sort" => "asc", "total" => Appointment::count()]
         ], 201);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function user_list()
+    {
+
+        return response()->json([
+            'success' => true,
+            'data' => User::all(),
+            'meta' => ["field" => "id",
+            "sort" => "asc", "total" => User::count()]
+        ], 201);
+    }
 }
