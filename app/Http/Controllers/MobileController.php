@@ -374,7 +374,7 @@ class MobileController extends Controller
             COS(lat / 57.3), 2)) AS distance')
             
         )
-        ->having('distance', '<', 10)
+        // ->having('distance', '<', 10)
         ->orderBy('distance')->get()->toArray();
         // $list = Hospital::get()->toArray();
     
