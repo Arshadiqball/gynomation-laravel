@@ -60,7 +60,7 @@ class HomeController extends Controller
     }
     
     public function hospital_create(){
-        dd(request()->segments());
+        dd(request());
         $flight = new Hospital;
 
         // $flight->name = Input::get('name');
