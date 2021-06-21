@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Appointment;
 use App\Hospital;
 use App\User;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
 {
@@ -66,7 +67,7 @@ class HomeController extends Controller
 
         $flight->save();
 
-        return redirect()->route('/');
+        return redirect()->route('/hospital/list');
     }
     
     /**

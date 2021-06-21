@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form action="{{URL('/hospital/create')}}">
+    <form action="{{URL('/hospitals/create')}}">
         <label for="fname">Name:</label><br>
         <input type="text" name="name">
         <input type="submit" value="Submit">
