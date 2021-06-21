@@ -369,13 +369,14 @@ class MobileController extends Controller
         //     )
         //   ) AS distance'
         // ))
-        $list = Hospital::select('*', 
-            DB::raw('SQRT( POW(170.1 * (lat - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - lng) * 
-            COS(lat / 57.3), 2)) AS distance')
+        // $list = Hospital::select('*', 
+        //     DB::raw('SQRT( POW(170.1 * (lat - '.$request->input('lat').'), 2) + POW(69.1 * ('.$request->input('lng').' - lng) * 
+        //     COS(lat / 57.3), 2)) AS distance')
             
-        )
-        ->having('distance', '<', 10)
-        ->orderBy('distance')->get()->toArray();
+        // )
+        // ->having('distance', '<', 10)
+        // ->orderBy('distance')->get()->toArray();
+        $list = Hospital::get()->toArray();
     
         return response()->json([
             'success' => true,
