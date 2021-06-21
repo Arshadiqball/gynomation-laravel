@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <button class="btn btn-primary">Add Hospital</button>
+    <a href="{{URL('hospital/add')}}" class="btn btn-primary">Add Hospital</a>
 
     <!--begin::student_teacher-->
     <div class="row">

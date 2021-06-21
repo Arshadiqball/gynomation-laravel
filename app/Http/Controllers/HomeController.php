@@ -60,7 +60,13 @@ class HomeController extends Controller
     
     public function hospital_create(){
         
-        dd(123);
+        $flight = new Hospital;
+
+        $flight->name = Input::get('name');
+
+        $flight->save();
+
+        return redirect()->route('/');
     }
     
     /**
