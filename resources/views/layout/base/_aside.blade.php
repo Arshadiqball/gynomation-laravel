@@ -25,15 +25,24 @@
     <div class="aside-nav d-flex flex-column align-items-center flex-column-fluid pt-7">
         <!--begin::Nav-->
         <ul class="nav flex-column">
+            @if(Auth::user()->role == 'superadmin')
             <!--begin::Item-->
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" 
+            <li class="nav-item mb-5" 
             title="Users">
-                <a href="{{URL('/user/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab" data-target="#kt_aside_tab_3" role="tab">
+                <a href="{{URL('/user/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-group icon-lg"></i>
                 </a>
             </li>
             <!--end::Item-->
-
+            <!--begin::Item-->
+            <li class="nav-item mb-5" 
+            title="Hospitals">
+                <a href="{{URL('/hospital/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg">
+                    <i class="flaticon2-group icon-lg"></i>
+                </a>
+            </li>
+            <!--end::Item-->
+            @endif
         </ul>
         <!--end::Nav-->
     </div>
