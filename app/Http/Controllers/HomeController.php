@@ -70,7 +70,7 @@ class HomeController extends Controller
 
         $flight->save();
 
-        return redirect()->route('/hospital/list');
+        return redirect('hospital/list');
     }
     
     /**
