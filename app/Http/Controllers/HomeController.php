@@ -58,6 +58,10 @@ class HomeController extends Controller
     public function hospital_add(){
         return view('pages.hospital_add');
     }
+
+    public function user_add(){
+        return view('pages.user_add');
+    }
     
     public function hospital_create(){
         $flight = new Hospital;
@@ -73,6 +77,17 @@ class HomeController extends Controller
         return redirect('hospital/list');
     }
     
+    public function user_create(){
+        User::create([
+            'name' => request()->query('name'),
+            'email' => request()->query('email'),
+            'password' => Hash::make(12345678),
+            'role' => 'admin',
+        ]);
+
+        return redirect('user/list');
+    }
+
     /**
      * Show the application dashboard.
      *
