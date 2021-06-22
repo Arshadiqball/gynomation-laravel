@@ -62,7 +62,7 @@
                         field: 'address',
                         title: 'Address'
                     }, {
-                        field: 'phone',
+                        field: 'phone_number',
                         title: 'Phone'
                     }, {
                         field: 'reason',

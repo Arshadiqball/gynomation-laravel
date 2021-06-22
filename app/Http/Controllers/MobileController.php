@@ -273,6 +273,7 @@ class MobileController extends Controller
         $user->email = $request->input('email');
         $user->phone_number = $request->input('phone_number');
         $user->address = $request->input('address');
+        $user->role = 'patient';
         $user->password = bcrypt($request->input('password'));
         // $user->user_code = $num.$alp;
         $user->save();
@@ -348,6 +349,42 @@ class MobileController extends Controller
                 'phone_number' => $user->phone_number,
                 'gender' => $user->gender
             ]
+            
+        ], 201);
+    }
+    
+    public function update_profile(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric'
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+                'address' => $user->address,
+                'phone_number' => $user->phone_number,
+                'gender' => $user->gender
+            ]
+            
+        ], 201);
+    }
+
+    public function class_routine(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => DB::select('select * from class_routine where user_id = '.$request->user_id)
             
         ], 201);
     }

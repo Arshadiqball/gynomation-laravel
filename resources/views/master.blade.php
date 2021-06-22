@@ -10,7 +10,7 @@
     <meta charset="utf-8"/>
 
         {{-- Title Section --}}
-        <title>{{ config('app.name') }} | {{ config('app.title') }}</title>
+        <title>Gynomation</title>
 
         {{-- Meta Data --}}
         <meta charset="UTF-8">

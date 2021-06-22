@@ -23,7 +23,8 @@ class CreateAppointmentsTable extends Migration
             $table->string('phone');
             $table->string('lat');
             $table->string('lng');
-            $table->enum('reason',['diab','hytext'])->default('diab');
+            $table->string('reason')->nullable();
+            $table->string('hospital_id')->nullable();
             $table->timestamps();
         });
     }

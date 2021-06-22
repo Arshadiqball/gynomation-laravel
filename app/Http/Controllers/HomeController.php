@@ -7,6 +7,9 @@ use App\Appointment;
 use App\Hospital;
 use App\User;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -27,9 +30,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['appointments'] = Appointment::count();
-        $data['patient'] = User::where('role','patient')->count();
-        $data['hospital'] = User::where('role','admin')->count();
+        if(Auth::user()->role == 'superadmin'){
+            $data['patient'] = User::where('role','patient')->count();
+            $data['hospital'] = User::where('role','admin')->count();
+            $data['appointments'] = Appointment::count();
+        }else{
+            $data['patient'] = User::where('role','patient')->where('hospital_id',Auth::user()->hospital_id)->count();
+            $data['appointments'] = Appointment::where('hospital_id',Auth::user()->hospital_id)->count();
+        }
         return view('pages.dashboard')->with($data, 'data');
     }
 
@@ -67,10 +75,10 @@ class HomeController extends Controller
         $flight = new Hospital;
 
         $flight->name = request()->query('name');
-        $flight->address = 'address';
-        $flight->phone = 3424234234;
-        $flight->lat = 12.1231231;
-        $flight->lng = 12.1231231;
+        $flight->address = request()->query('address');
+        $flight->phone = request()->query('phone');
+        $flight->lat = request()->query('lat');
+        $flight->lng = request()->query('lng');
 
         $flight->save();
 
@@ -81,8 +89,9 @@ class HomeController extends Controller
         User::create([
             'name' => request()->query('name'),
             'email' => request()->query('email'),
-            'password' => Hash::make(12345678),
+            'password' => Hash::make(request()->query('email')),
             'role' => 'admin',
+            'hospital_id' => request()->query('hospital_id'),
         ]);
 
         return redirect('user/list');
@@ -95,12 +104,17 @@ class HomeController extends Controller
      */
     public function appointment_list()
     {
-
+        if(Auth::user()->role == 'superadmin'){
+            $data = DB::select('select * from appointments inner join users on users.id = appointments.user_id');
+        }else{
+            $data = DB::select('select * from appointments inner join users on users.id = appointments.user_id 
+            where appointments.hospital_id = '.Auth::user()->hospital_id);
+        }
         return response()->json([
             'success' => true,
-            'data' => Appointment::all(),
+            'data' => $data,
             'meta' => ["field" => "id",
-            "sort" => "asc", "total" => Appointment::count()]
+            "sort" => "asc", "total" => Appointment::where('hospital_id',Auth::user()->hospital_id)->count()]
         ], 201);
     }
 

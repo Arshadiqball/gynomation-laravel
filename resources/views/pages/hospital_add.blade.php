@@ -3,8 +3,11 @@
 @section('content')
 
     <form action="{{URL('/hospitals/create')}}">
-        <label for="fname">Name:</label><br>
-        <input type="text" name="name">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="address" placeholder="Address">
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="lat" placeholder="lat">
+        <input type="text" name="lng" placeholder="lng">
         <input type="submit" value="Submit">
     </form>
 

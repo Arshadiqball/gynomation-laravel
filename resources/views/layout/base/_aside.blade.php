@@ -16,7 +16,7 @@
     <div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-4 py-lg-8">
         <!--begin::Logo-->
         <a href="index.html">
-            <img alt="Logo" src="{{ asset('media/logos/logo-letter-9.png') }}" class="max-h-40px" />
+            <img alt="Logo" src="{{asset('images/logo1.png')}}" class="max-h-40px" />
         </a>
         <!--end::Logo-->
     </div>
@@ -38,7 +38,7 @@
             <li class="nav-item mb-5" 
             title="Hospitals">
                 <a href="{{URL('/hospital/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg">
-                    <i class="flaticon2-group icon-lg"></i>
+                    <i class="flaticon2-list icon-lg"></i>
                 </a>
             </li>
             <!--end::Item-->

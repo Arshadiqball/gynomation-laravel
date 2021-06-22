@@ -22,6 +22,6 @@ Route::post('users/list', 'HomeController@users_list');
 Route::get('hospital/list', 'HomeController@hospital_list');
 Route::post('hospitals/list', 'HomeController@hospitals_list');
 Route::get('hospitals/create', 'HomeController@hospital_create');
-Route::get('users/create', 'HomeController@user_create');
 Route::get('hospital/add', 'HomeController@hospital_add');
 Route::get('user/add', 'HomeController@user_add');
+Route::get('users/create', 'HomeController@user_create');
