@@ -415,9 +415,9 @@ class MobileController extends Controller
         // $list = Hospital::get()->toArray();
 
         $list = DB::select("SELECT *, (
-            SQRT( POWER(170.1 * (lat - 31.2334234), 2) + POWER(69.1 * (31.2334234 - lng) * 
+            SQRT( POWER(170.1 * (lat - ".$request->input('lat')."), 2) + POWER(69.1 * (".$request->input('lng')." - lng) * 
             COS(lat / 57.3), 2))) AS distance FROM hospitals WHERE  (
-            SQRT( POWER(170.1 * (lat - 31.2334234), 2) + POWER(69.1 * (31.2334234 - lng) * 
+            SQRT( POWER(170.1 * (lat - ".$request->input('lat')."), 2) + POWER(69.1 * (".$request->input('lng')." - lng) * 
             COS(lat / 57.3), 2))) < 10");
     
         return response()->json([
