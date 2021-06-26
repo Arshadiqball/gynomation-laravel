@@ -25,3 +25,10 @@ Route::get('hospitals/create', 'HomeController@hospital_create');
 Route::get('hospital/add', 'HomeController@hospital_add');
 Route::get('user/add', 'HomeController@user_add');
 Route::get('users/create', 'HomeController@user_create');
+
+
+Route::post('/save-token', [App\Http\Controllers\HomeController::class, 'saveToken'])->name('save-token');
+Route::post('/save-push-notification-token', [App\Http\Controllers\HomeController::class, 'savePushNotificationToken'])->name('save-push-notification-token');
+Route::post('/send-push-notification', [App\Http\Controllers\HomeController::class, 'sendPushNotification'])->name('send.push-notification');
+
+Route::get( 'notifyUser', [App\Http\Controllers\HomeController::class, 'notifyUser'] );

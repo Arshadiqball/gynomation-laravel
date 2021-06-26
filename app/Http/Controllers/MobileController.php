@@ -388,6 +388,100 @@ class MobileController extends Controller
             
         ], 201);
     }
+
+    public function payment_list(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            
+            return response()->json([
+                'success' => false,
+                'message' => $validator->messages()->first()
+            ], 401);
+        }
+
+        $status = '';
+        $year = '';
+
+        if(!empty($request->year)){
+            $year = ' AND year(payment.date) = '.$request->year;
+        }else{
+            $year = ' AND year(payment.date) = '.date('Y');
+        }
+
+        if(!empty($request->status)){
+            $status = " AND payment.status = '".$request->status."'";
+        }
+
+        $list = DB::select("select 
+                DATE_FORMAT(m1, '%b %Y') AS month, IFNULL((SELECT status FROM payment WHERE month(payment.date) = DATE_FORMAT(m1, '%m')
+                and  year(payment.date) = DATE_FORMAT(m1, '%Y') AND user_id = $request->user_id $year $status LIMIT 1),'-') AS status
+                
+                from
+                (
+                select 
+                (
+                    (SELECT min(DATE) FROM payment WHERE user_id = $request->user_id $year $status LIMIT 1) - INTERVAL DAYOFMONTH((SELECT min(DATE) FROM 
+                    payment WHERE user_id = $request->user_id $year $status LIMIT 1))-1 DAY) 
+                    +INTERVAL m MONTH as m1
+                    from
+                    (
+                    select @rownum:=@rownum+1 AS m from
+                        (select 1 union select 2 union select 3 union select 4) t1,
+                        (select 1 union select 2 union select 3 union select 4) t2,
+                        (select 1 union select 2 union select 3 union select 4) t3,
+                        (select 1 union select 2 union select 3 union select 4) t4,
+                        (select @rownum:=-1) t0
+                    ) d1
+                ) d2
+                where m1<=(SELECT max(DATE) FROM payment WHERE user_id = $request->user_id $year $status LIMIT 1)
+            order by m1");
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => $list
+            
+        ], 201);
+    }
+
+    public function notification(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+        ]);
+        
+        $list = DB::select('select name as title,name as month from class_routine 
+        where user_id = '.$request->user_id.' order by id asc limit '.$request->current_page.','.$request->next_page);
+        if(empty($list)){
+            $list = null;
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => $list
+            
+        ], 201);
+
+    }
+
+    public function report_list(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => DB::select('select name as title,name as month from class_routine where user_id = '.$request->user_id)
+            
+        ], 201);
+    }
     
     public function hospital_list_nearby(Request $request){
         
@@ -486,6 +580,59 @@ class MobileController extends Controller
         }
         
         return $dist;
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function send(Request $request)
+    {
+        return $this->sendNotification(array(
+          'eiSFTNPhSGu_fz5T4dh-Eg:APA91bHeIoGunmKNPbRrbvEyjO59-wxIG1i4QYe97rL_5q5hSpJrljpljv2JvxXkQNozLOtk2SgclqZilKBql7USJnxN0QYbaqWR6K6FqMDoKnmcbARSTTYS2fTXLmL58HDuRo0GsEnI'
+          //..
+        ), array(
+          "title" => "Sample Message", 
+          "body" => "This is Test message body"
+        ));
+    }
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function sendNotification($device_tokens, $message)
+    {
+        $SERVER_API_KEY = 'AAAAVHkNacE:APA91bFnLZMj56RXygZhIGGYddXGGqMTlwD4Q9CmTc2O-JYUWuSWjiG7ohRxp-gUjdtIpDlFFFMS77nEwSuSULcxJe-sVgfTxZ1rHbfrjPnqOOt2SH-rj_svxEnJrOXKCrvfdvvgszoJ';
+  
+        // payload data, it will vary according to requirement
+        $data = [
+            "registration_ids" => $device_tokens, // for multiple device ids
+            "data" => $message
+        ];
+        $dataString = json_encode($data);
+    
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+      
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+               
+        $response = curl_exec($ch);
+      
+        curl_close($ch);
+      
+        return $response;
     }
 
 }

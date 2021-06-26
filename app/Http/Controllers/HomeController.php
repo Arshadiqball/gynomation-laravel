@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Appointment;
 use App\Hospital;
 use App\User;
+use App\Libraries\Firebase;
+use App\Libraries\Push;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use DB;
+
 
 class HomeController extends Controller
 {
@@ -105,10 +108,10 @@ class HomeController extends Controller
     public function appointment_list()
     {
         if(Auth::user()->role == 'superadmin'){
-            $data = DB::select('select * from appointments inner join users on users.id = appointments.user_id');
+            $data = DB::select("select * from appointments inner join users on users.id = appointments.user_id where users.role = 'patient'");
         }else{
-            $data = DB::select('select * from appointments inner join users on users.id = appointments.user_id 
-            where appointments.hospital_id = '.Auth::user()->hospital_id);
+            $data = DB::select("select * from appointments inner join users on users.id = appointments.user_id
+            where users.role = 'patient' and appointments.hospital_id = ".Auth::user()->hospital_id);
         }
         return response()->json([
             'success' => true,
@@ -149,4 +152,70 @@ class HomeController extends Controller
             "sort" => "asc", "total" => Hospital::count()]
         ], 201);
     }
+
+    public function savePushNotificationToken(Request $request)
+    {
+        auth()->user()->update(['device_token'=>$request->token]);
+        return response()->json(['token saved successfully.']);
+    }
+    
+    public function sendPushNotification(Request $request)
+    {
+        $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+          
+        $SERVER_API_KEY = 'AAAA7APWBt8:APA91bH483-18a6_BFKSRtqeTTrXElxnqoZbCm9KVgnI0k8KUPsKjIru1-D1DS1AydhY1qTJaLYhl8EZvKZFVzn7vmTFwlkc5bsm0r9l4xqGO7G5r6Kp9gezYBD30uH7CCfzD6D62AfA';
+  
+        $data = [
+            "registration_ids" => $firebaseToken,
+            "notification" => [
+                "title" => $request->title,
+                "body" => $request->body,  
+            ]
+        ];
+        $dataString = json_encode($data);
+    
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+      
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+               
+        $response = curl_exec($ch);
+  
+        dd($response);
+    }
+
+    public function notifyUser(Request $request){
+ 
+        $user = User::where('id', Auth::user()->id)->first();
+      
+        // $notification_id = $user->notification_id;
+        $title = "Greeting Notification";
+        $message = "Have good day!";
+        $id = $user->id;
+        $type = "basic";
+      
+        $res = send_notification_FCM('eiSFTNPhSGu_fz5T4dh-Eg:APA91bHeIoGunmKNPbRrbvEyjO59-wxIG1i4QYe97rL_5q5hSpJrljpljv2JvxXkQNozLOtk2SgclqZilKBql7USJnxN0QYbaqWR6K6FqMDoKnmcbARSTTYS2fTXLmL58HDuRo0GsEnI', $title, $message, $id,$type);
+      
+        if($res == 1){
+      
+            dd('success');
+      
+        }else{
+      
+            dd('fail');
+        }
+         
+      
+     }
 }
+
