@@ -94,7 +94,7 @@ class HomeController extends Controller
         User::create([
             'name' => request()->query('name'),
             'email' => request()->query('email'),
-            'password' => Hash::make(request()->query('email')),
+            'password' => Hash::make(request()->query('password')),
             'role' => 'admin',
             'hospital_id' => request()->query('hospital_id'),
         ]);
