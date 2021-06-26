@@ -4,25 +4,8 @@
 	<div class="offcanvas-content pr-5 mr-n5">
 		<!--begin::Header-->
 		<div class="d-flex align-items-center mt-5">
-			<div class="symbol symbol-100 mr-5">
-				<div class="image-input image-input-empty image-input-outline" id="kt_user_edit_avatar" style="background-image: url({{asset('media/users/blank.png')}})">
-					<div class="image-input-wrapper"></div>
-					<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-						<i class="fa fa-pen icon-sm text-muted"></i>
-						<input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
-						<input type="hidden" name="profile_avatar_remove">
-					</label>
-					<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="" data-original-title="Cancel avatar">
-						<i class="ki ki-bold-close icon-xs text-muted"></i>
-					</span>
-					<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="" data-original-title="Remove avatar">
-						<i class="ki ki-bold-close icon-xs text-muted"></i>
-					</span>
-				</div>
-
-			</div>
 			<div class="d-flex flex-column">
-				<a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
+				<a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ Auth::user()->name }}</a>
 				<div class="text-muted mt-1">{{ Auth::user()->role }}</div>
 				<div class="navi mt-2">
 					<a href="#" class="navi-item">
