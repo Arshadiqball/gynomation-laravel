@@ -24,7 +24,7 @@
 									@csrf
 
 									<div class="text-center pb-8">
-										<h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In 1</h2>
+										<h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h2>
 										@if (Route::has('register') AND FALSE)
 										<span class="text-muted font-weight-bold font-size-h4">Or
 										<a href="javascript:;" class="text-primary font-weight-bolder" id="kt_login_signup">Create An Account</a></span>
