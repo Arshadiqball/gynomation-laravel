@@ -15,7 +15,7 @@
     <!--begin::Brand-->
     <div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-4 py-lg-8">
         <!--begin::Logo-->
-        <a href="index.html">
+        <a href="#">
             <img alt="Logo" src="{{asset('images/logo1.png')}}" class="max-h-40px" />
         </a>
         <!--end::Logo-->
@@ -28,7 +28,7 @@
             @if(Auth::user()->role == 'superadmin')
             <!--begin::Item-->
             <li class="nav-item mb-5" 
-            title="Users">
+            title="Hospital Owners">
                 <a href="{{URL('/user/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-group icon-lg"></i>
                 </a>
@@ -36,7 +36,7 @@
             <!--end::Item-->
             <!--begin::Item-->
             <li class="nav-item mb-5" 
-            title="Hospitals">
+            title="Hospital list">
                 <a href="{{URL('/hospital/list')}}" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-list icon-lg"></i>
                 </a>

@@ -23,7 +23,7 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="card-title font-weight-bolder text-dark-75 font-size-h2 mb-0 mt-6 d-block student">{{ $hospital }}</span>
-                            <span class="font-weight-bold text-muted font-size-sm">Admins</span>
+                            <span class="font-weight-bold text-muted font-size-sm">Hospital Owners</span>
                         </div>
                     </a>
                     <!--end::Body-->
@@ -49,7 +49,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="card-title font-weight-bolder text-dark-75 font-size-h2 mb-0 mt-6 d-block student">{{ $patient }}</span>
-                        <span class="font-weight-bold text-muted font-size-sm">Patient</span>
+                        <span class="font-weight-bold text-muted font-size-sm">Patients</span>
                     </div>
                 </a>
                 <!--end::Body-->

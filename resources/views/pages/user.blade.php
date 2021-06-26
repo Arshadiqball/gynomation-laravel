@@ -2,6 +2,7 @@
 
 @section('content')
 
+<p class="text-right" style="font-size:20px;">Hospital Owners</p>
 <a href="{{URL('user/add')}}" class="btn btn-primary">Add Owner</a>
 
     <!--begin::student_teacher-->

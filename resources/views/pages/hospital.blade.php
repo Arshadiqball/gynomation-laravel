@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('content')
-
-    <a href="{{URL('hospital/add')}}" class="btn btn-primary">Add Hospital</a>
+<p class="text-right" style="font-size:20px;">Hospital List</p>
+    <a href="{{URL('hospital/add')}}" class="btn btn-primary text-rigth">Add Hospital</a>
 
     <!--begin::student_teacher-->
     <div class="row">
