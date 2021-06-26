@@ -36,14 +36,12 @@ class HomeController extends Controller
         if(Auth::user()->role == 'superadmin'){
             $data['patient'] = User::where('role','patient')->count();
             $data['hospital'] = User::where('role','admin')->count();
-            $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
-            where users.role = 'patient'");
-            dd($data['appointments']);
+            $data['appointments'] =DB::select("select count(appointments.id) as total from appointments inner join users on users.id = appointments.user_id
+            where users.role = 'patient'")[0]->total;
         }else{
             $data['patient'] = User::where('role','patient')->where('hospital_id',Auth::user()->hospital_id)->count();
-            $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
-            where users.role = 'patient' and appointments.hospital_id = ".Auth::user()->hospital_id);
-            $data['appointments'] = Appointment::where('hospital_id',Auth::user()->hospital_id)->where('users.role','patient')->count();
+            $data['appointments'] =DB::select("select count(appointments.id) as total from appointments inner join users on users.id = appointments.user_id
+            where users.role = 'patient' and appointments.hospital_id = ".Auth::user()->hospital_id)[0]->total;
         }
         return view('pages.dashboard')->with($data, 'data');
     }
