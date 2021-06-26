@@ -36,10 +36,10 @@ class HomeController extends Controller
         if(Auth::user()->role == 'superadmin'){
             $data['patient'] = User::where('role','patient')->count();
             $data['hospital'] = User::where('role','admin')->count();
-            $data['appointments'] = Appointment::count();
+            $data['appointments'] = Appointment::where('role','patient')->count();
         }else{
             $data['patient'] = User::where('role','patient')->where('hospital_id',Auth::user()->hospital_id)->count();
-            $data['appointments'] = Appointment::where('hospital_id',Auth::user()->hospital_id)->count();
+            $data['appointments'] = Appointment::where('hospital_id',Auth::user()->hospital_id)->where('role','patient')->count();
         }
         return view('pages.dashboard')->with($data, 'data');
     }
