@@ -130,10 +130,9 @@ class HomeController extends Controller
      */
     public function users_list()
     {
-
         return response()->json([
             'success' => true,
-            'data' => User::where('role','admin')->get(),
+            'data' => DB::select("select hospitals.name as hospital, users.name, users.email, users.created_at from users inner join hospitals on hospitals.id = users.hospital_id where role = 'admin'"),
             'meta' => ["field" => "id",
             "sort" => "asc", "total" => User::count()]
         ], 201);

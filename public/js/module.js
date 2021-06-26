@@ -158,6 +158,9 @@
                         field: 'email',
                         title: 'Email'
                     }, {
+                        field: 'hospital',
+                        title: 'Hospital'
+                    }, {
                         field: 'created_at',
                         title: 'Create At',
                         template: function(row){
