@@ -133,7 +133,7 @@ class HomeController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => User::all(),
+            'data' => User::where('role','admin')->get(),
             'meta' => ["field" => "id",
             "sort" => "asc", "total" => User::count()]
         ], 201);

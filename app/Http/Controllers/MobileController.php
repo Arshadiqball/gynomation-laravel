@@ -356,20 +356,43 @@ class MobileController extends Controller
     public function update_profile(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric'
+            'id' => 'required|numeric',
+            'name' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required'
         ]);
         
+        if ($validator->fails()) {
+            
+            return response()->json([
+                'success' => false,
+                'message' => $validator->messages()->first()
+            ], 401);
+        }
+
+        $user = User::find($request->input('id'));
+      
+        if($request->input('name') != ''){
+            $user->name = $request->input('name');
+        }
+        
+        if($request->input('address') != ''){
+            $user->address = $request->input('address');
+        }
+       
+        if( $request->input('phone_number') != ''){
+            $user->phone_number = $request->input('phone_number');
+        }
+
+        $user->save();
+
         return response()->json([
             'success' => true,
-            'message' => 'Successfully Get List!',
+            'message' => 'Successfully Profile Updated!',
             'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
-                'name' => $user->name,
-                'avatar' => $user->avatar,
-                'address' => $user->address,
-                'phone_number' => $user->phone_number,
-                'gender' => $user->gender
+                'id' => $request->input('id'),
+                'name' => $request->input('name'),
+                'email' => User::find($request->input('id'))->email
             ]
             
         ], 201);
