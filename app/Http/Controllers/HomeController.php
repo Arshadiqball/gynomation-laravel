@@ -37,9 +37,11 @@ class HomeController extends Controller
             $data['patient'] = User::where('role','patient')->count();
             $data['hospital'] = User::where('role','admin')->count();
             $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
-            where users.role = 'patient' and appointments.hospital_id = ".Auth::user()->hospital_id);
+            where users.role = 'patient'");
         }else{
             $data['patient'] = User::where('role','patient')->where('hospital_id',Auth::user()->hospital_id)->count();
+            $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
+            where users.role = 'patient' and appointments.hospital_id = ".Auth::user()->hospital_id);
             $data['appointments'] = Appointment::where('hospital_id',Auth::user()->hospital_id)->where('users.role','patient')->count();
         }
         return view('pages.dashboard')->with($data, 'data');
