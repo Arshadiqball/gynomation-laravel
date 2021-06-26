@@ -71,7 +71,7 @@
                         field: 'created_at',
                         title: 'Create At',
                         template: function(row){
-                            return moment(row.created_at,'YYYY-MM-DD HH:mm:ss').fromNow();
+                            return row.created_at;
                         }
                     }],
                 };
@@ -161,7 +161,7 @@
                         field: 'created_at',
                         title: 'Create At',
                         template: function(row){
-                            return moment(row.created_at,'YYYY-MM-DD HH:mm:ss').fromNow();
+                            return row.created_at;
                         }
                     }],
                 };
@@ -251,7 +251,7 @@
                         field: 'created_at',
                         title: 'Create At',
                         template: function(row){
-                            return moment(row.created_at,'YYYY-MM-DD HH:mm:ss').fromNow();
+                            return row.created_at;
                         }
                     }],
                 };
