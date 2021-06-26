@@ -38,6 +38,7 @@ class HomeController extends Controller
             $data['hospital'] = User::where('role','admin')->count();
             $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
             where users.role = 'patient'");
+            dd($data['appointments']);
         }else{
             $data['patient'] = User::where('role','patient')->where('hospital_id',Auth::user()->hospital_id)->count();
             $data['appointments'] =DB::select("select count(appointments.id) from appointments inner join users on users.id = appointments.user_id
