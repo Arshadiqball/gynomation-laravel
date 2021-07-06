@@ -197,26 +197,21 @@ class HomeController extends Controller
 
     public function notifyUser(Request $request){
  
-        $user = User::where('id', Auth::user()->id)->first();
-      
-        // $notification_id = $user->notification_id;
         $title = "Greeting Notification";
-        $message = "Have good day!";
-        $id = $user->id;
-        $type = "basic";
+        $body = "Have good day!";
       
-        $res = send_notification_FCM('eiSFTNPhSGu_fz5T4dh-Eg:APA91bHeIoGunmKNPbRrbvEyjO59-wxIG1i4QYe97rL_5q5hSpJrljpljv2JvxXkQNozLOtk2SgclqZilKBql7USJnxN0QYbaqWR6K6FqMDoKnmcbARSTTYS2fTXLmL58HDuRo0GsEnI', $title, $message, $id,$type);
-      
+        $res = send_notification_FCM(array(
+            'dszRl87YTqCPYhLUDmnMi-:APA91bGiJEPkDxkhU3Q9TVliocVaZoKA_J8Xd7H02u_NP8h-EfrumRKhk9sEwHHe3ZayGLSkdYSJCKAZQpaKTGzbhtORG88CovSQDbLZ9enTsTj9m22tK2YG73bnqap9NLVZo5sbpDPH'
+            //..
+          ), array(
+            "title" => $title, 
+            "body" => $body
+          ));
         if($res == 1){
-      
             dd('success');
-      
         }else{
-      
             dd('fail');
         }
-         
-      
      }
 }
 

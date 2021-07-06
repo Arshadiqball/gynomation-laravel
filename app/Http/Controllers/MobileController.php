@@ -165,7 +165,8 @@ class MobileController extends Controller
         
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'device_token' => 'required'
         ]);
         
         if ($validator->fails()) {
@@ -189,6 +190,8 @@ class MobileController extends Controller
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
+
+        User::find($user->id)->update(['device_token'=>$request->device_token]);
 
         if(empty($user->avatar)){
             $user->avatar = 'https://pngimage.net/wp-content/uploads/2018/06/icon-pasien-png-4.png';
@@ -492,6 +495,27 @@ class MobileController extends Controller
 
     }
 
+    public function issue(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+        ]);
+        
+        $list = DB::select('select reason as title from issues 
+        where user_id = '.$request->user_id.' order by id asc limit '.$request->current_page.','.$request->next_page);
+        if(empty($list)){
+            $list = null;
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => $list
+            
+        ], 201);
+
+    }
+
     public function report_list(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -503,6 +527,42 @@ class MobileController extends Controller
             'message' => 'Successfully Get List!',
             'data' => DB::select('select name as title,name as month from class_routine where user_id = '.$request->user_id)
             
+        ], 201);
+    }
+
+    public function course_list(Request $request){
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => DB::select('select name, id from users')
+        ], 201);
+    }
+
+    public function subject_list(Request $request){
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => DB::select('select subject.name, subject.id from subject where subject.user_id = '.$request->user_id)
+        ], 201);
+    }
+
+    public function is_class_time_active(Request $request){
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Get List!',
+            'data' => DB::select('SELECT 
+            if(((TIMESTAMPDIFF(MINUTE, time(NOW()), time(START)) > -10) AND 
+            (TIMESTAMPDIFF(MINUTE, time(NOW()), time(START)) < 10)), 1, 0) AS is_avail
+            ,TIME_FORMAT(TIMEDIFF(time(NOW()), time(START)), "%H") AS hours,
+            TIME_FORMAT(TIMEDIFF(time(NOW()), time(START)), "%i") AS minutes,
+            TIME_FORMAT(TIMEDIFF(time(NOW()), time(START)), "%s") AS seconds,
+            if(((TIMESTAMPDIFF(MINUTE, time(NOW()), time(START)) > 0) AND 
+            (TIMESTAMPDIFF(MINUTE, time(NOW()), time(START)) < 10)), 1, 0) AS check_signature 
+            FROM class_routine WHERE (Date(START) = Date(NOW())) and
+                        user_id = '.$request->user_id)
         ], 201);
     }
     
@@ -555,6 +615,15 @@ class MobileController extends Controller
             'success' => true,
             'data' => $list,
             'message' => 'Successfully Get Doctor Availability!'
+        ], 201);
+    }
+
+    public function add_issue(Request $request){
+        $list = DB::select("insert into issues (reason,user_id) values ('".$request->reason."',".$request->user_id.")");
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully Insert Issue!'
         ], 201);
     }
 
@@ -612,9 +681,9 @@ class MobileController extends Controller
      */
     public function send(Request $request)
     {
+        $token = User::find($request->user_id)->device_token;
         return $this->sendNotification(array(
-          'eiSFTNPhSGu_fz5T4dh-Eg:APA91bHeIoGunmKNPbRrbvEyjO59-wxIG1i4QYe97rL_5q5hSpJrljpljv2JvxXkQNozLOtk2SgclqZilKBql7USJnxN0QYbaqWR6K6FqMDoKnmcbARSTTYS2fTXLmL58HDuRo0GsEnI'
-          //..
+            $token
         ), array(
           "title" => "Sample Message", 
           "body" => "This is Test message body"
@@ -629,14 +698,13 @@ class MobileController extends Controller
     public function sendNotification($device_tokens, $message)
     {
         $SERVER_API_KEY = 'AAAAVHkNacE:APA91bFnLZMj56RXygZhIGGYddXGGqMTlwD4Q9CmTc2O-JYUWuSWjiG7ohRxp-gUjdtIpDlFFFMS77nEwSuSULcxJe-sVgfTxZ1rHbfrjPnqOOt2SH-rj_svxEnJrOXKCrvfdvvgszoJ';
-  
-        // payload data, it will vary according to requirement
+        
         $data = [
             "registration_ids" => $device_tokens, // for multiple device ids
-            "data" => $message
+            "notification" => $message
         ];
         $dataString = json_encode($data);
-    
+        // print_r($dataString);die;
         $headers = [
             'Authorization: key=' . $SERVER_API_KEY,
             'Content-Type: application/json',
@@ -654,7 +722,6 @@ class MobileController extends Controller
         $response = curl_exec($ch);
       
         curl_close($ch);
-      
         return $response;
     }
 

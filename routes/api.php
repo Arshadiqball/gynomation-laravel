@@ -21,5 +21,10 @@ Route::post('class_routine', 'MobileController@class_routine');
 Route::post('payment_list', 'MobileController@payment_list');
 Route::post('report_list', 'MobileController@report_list');
 Route::post('notification', 'MobileController@notification');
+Route::post('issue', 'MobileController@issue');
 
 Route::post('send-notification', [App\Http\Controllers\MobileController::class, 'send']);
+Route::post( 'course_list', [App\Http\Controllers\MobileController::class, 'course_list'] );
+Route::post( 'subject_list', [App\Http\Controllers\MobileController::class, 'subject_list'] );
+Route::post( 'is_class_time_active', [App\Http\Controllers\MobileController::class, 'is_class_time_active'] );
+Route::post( 'add_issue', [App\Http\Controllers\MobileController::class, 'add_issue'] );
