@@ -190,7 +190,7 @@ class MobileController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
-        User::find($user->id)->update(['device_token'=>$request->device_token]);
+        // User::find($user->id)->update(['device_token'=>$request->device_token]);
 
         if(empty($user->avatar)){
             $user->avatar = 'https://pngimage.net/wp-content/uploads/2018/06/icon-pasien-png-4.png';
