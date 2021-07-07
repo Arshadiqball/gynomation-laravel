@@ -165,8 +165,7 @@ class MobileController extends Controller
         
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6',
-            'device_token' => 'required'
+            'password' => 'required|min:6'
         ]);
         
         if ($validator->fails()) {
